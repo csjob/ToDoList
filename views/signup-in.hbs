@@ -1,0 +1,95 @@
+<section class="login_body">
+    <div class="main1">
+      <div class="container1 a-container" id="a-container">
+        <form class="form1" id="a-form" method="" action="">
+          <h2 class="form_title title">Create Account</h2>
+ 
+          <div class="form__icons">
+            <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/facebook.svg" alt="">
+            <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/twitter.svg">
+            <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/linkedin.svg"></div>
+            <span class="form__span">Register here!</span>
+ 
+          <input class="form__input" type="text" placeholder="Name">
+          <input class="form__input" type="text" placeholder="Email">
+          <input class="form__input" type="password" placeholder="Password">
+          {{!-- <button class="form__button button submit">SIGN UP</button> --}}
+          <button type="button" class="btn btn-info mt-3">SIGN UP</button>
+        </form>
+      </div>
+      <div class="container1 b-container" id="b-container">
+        <form class="form1" id="b-form" method="" action="">
+          <h2 class="form_title title">Sign in to ToDo List</h2>
+ 
+          <div class="form__icons">
+            <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/facebook.svg" alt="">
+            <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/twitter.svg">
+            <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/linkedin.svg"></div>
+            <span class="form__span">Sign In here!</span>
+ 
+          <input class="form__input" type="text" placeholder="Email">
+          <input class="form__input" type="password" placeholder="Password">
+         
+          {{!-- <button class="form__button button submit">SIGN IN</button> --}}
+          <button type="button" class="btn btn-info mt-3">SIGN IN</button>
+        </form>
+      </div>
+      <div class="switch" id="switch-cnt">
+        <div class="switch__circle"></div>
+        <div class="switch__circle switch__circle--t"></div>
+        <div class="switch__container" id="switch-c1">
+          <h2 class="switch__title title">Welcome Back !</h2>
+          <p class="switch__description description">Sign In here if you already have an account</p>
+          {{!-- <button class="switch__button button switch-btn">SIGN IN</button> --}}
+          <button type="button" class="btn btn-primary switch-btn">SIGN IN</button>
+        </div>
+        <div class="switch__container is-hidden" id="switch-c2">
+          <h2 class="switch__title title">Hello Friend !</h2>
+          <p class="switch__description description">Enter your personal details and start journey with us</p>
+          {{!-- <button class="switch__button button switch-btn">SIGN UP</button> --}}
+          <button type="button" class="btn btn-primary switch-btn">SIGN IN</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+      // Code By Webdevtrick ( https://webdevtrick.com )
+let switchCtn = document.querySelector("#switch-cnt");
+let switchC1 = document.querySelector("#switch-c1");
+let switchC2 = document.querySelector("#switch-c2");
+let switchCircle = document.querySelectorAll(".switch__circle");
+let switchBtn = document.querySelectorAll(".switch-btn");
+let aContainer = document.querySelector("#a-container");
+let bContainer = document.querySelector("#b-container");
+let allButtons = document.querySelectorAll(".submit");
+ 
+let getButtons = (e) => e.preventDefault()
+ 
+let changeForm = (e) => {
+ 
+    switchCtn.classList.add("is-gx");
+    setTimeout(function(){
+        switchCtn.classList.remove("is-gx");
+    }, 1500)
+ 
+    switchCtn.classList.toggle("is-txr");
+    switchCircle[0].classList.toggle("is-txr");
+    switchCircle[1].classList.toggle("is-txr");
+ 
+    switchC1.classList.toggle("is-hidden");
+    switchC2.classList.toggle("is-hidden");
+    aContainer.classList.toggle("is-txl");
+    bContainer.classList.toggle("is-txl");
+    bContainer.classList.toggle("is-z200");
+}
+ 
+let mainF = (e) => {
+    for (var i = 0; i < allButtons.length; i++)
+        allButtons[i].addEventListener("click", getButtons );
+    for (var i = 0; i < switchBtn.length; i++)
+        switchBtn[i].addEventListener("click", changeForm)
+}
+ 
+window.addEventListener("load", mainF);
+  </script>
