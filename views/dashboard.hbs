@@ -1,0 +1,15 @@
+<div>
+    <h1>Dashboard</h1>
+    <p>Welcome to your dashboard</p>
+
+    {{#if user}}
+        <p>You are logged in as </p> {{user.name}}
+        <form method="get" action="/logout">
+            <input type="submit" value="Logout" onclick="logout()">
+        </form>
+        
+    {{else}}
+        <p>You are not logged in</p>     
+    {{/if}}
+    
+</div>

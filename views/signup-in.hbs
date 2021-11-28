@@ -1,7 +1,9 @@
 <section class="login_body">
     <div class="main1">
       <div class="container1 a-container" id="a-container">
-        <form class="form1" id="a-form" method="" action="">
+
+
+        <form  action="/signup" method="POST" class="form1" id="a-form" >
           <h2 class="form_title title">Create Account</h2>
  
           <div class="form__icons">
@@ -10,15 +12,22 @@
             <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/linkedin.svg"></div>
             <span class="form__span">Register here!</span>
  
-          <input class="form__input" type="text" placeholder="Name">
-          <input class="form__input" type="text" placeholder="Email">
-          <input class="form__input" type="password" placeholder="Password">
+          <input class="form__input" type="text" placeholder="Name" name="name">
+          <input class="form__input" type="text" placeholder="Email" name="email">
+          <input class="form__input" type="password" placeholder="Password" name="password">
           {{!-- <button class="form__button button submit">SIGN UP</button> --}}
-          <button type="button" class="btn btn-info mt-3">SIGN UP</button>
+          {{!-- <button type="button" class="btn btn-info mt-3">SIGN UP</button> --}}
+          <input type="submit" class="btn btn-info mt-3" value="SIGN UP">
         </form>
+
+
       </div>
+
+  
       <div class="container1 b-container" id="b-container">
-        <form class="form1" id="b-form" method="" action="">
+
+
+        <form class="form1" id="b-form" method="POST" action="/login">
           <h2 class="form_title title">Sign in to ToDo List</h2>
  
           <div class="form__icons">
@@ -27,13 +36,17 @@
             <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/linkedin.svg"></div>
             <span class="form__span">Sign In here!</span>
  
-          <input class="form__input" type="text" placeholder="Email">
-          <input class="form__input" type="password" placeholder="Password">
+          <input class="form__input" type="text" placeholder="Email" name="email">
+          <input class="form__input" type="password" placeholder="Password" name="password">
          
           {{!-- <button class="form__button button submit">SIGN IN</button> --}}
-          <button type="button" class="btn btn-info mt-3">SIGN IN</button>
+          {{!-- <button type="button" class="btn btn-info mt-3">SIGN IN</button> --}}
+          <input type="submit" class="btn btn-info mt-3" value="SIGN IN">
         </form>
+
       </div>
+
+
       <div class="switch" id="switch-cnt">
         <div class="switch__circle"></div>
         <div class="switch__circle switch__circle--t"></div>

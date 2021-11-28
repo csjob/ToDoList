@@ -9,6 +9,12 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+//for database connection
+var db = require('./config/connection');
+//for session management
+var session = require('express-session');
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -18,6 +24,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//for session management
+app.use(session({secret: "key", cookie: {maxAge: 60000}}));
+
+//calling databse function
+db.connect((err)=>{
+  if(err){
+    console.log("Error in database connection"+err);
+  }else{
+    console.log("Database connected");
+  }
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
