@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var alert = require('alert');
+// var alert = require('alert');
 
 
 //taking database connection
@@ -35,7 +35,11 @@ router.post('/signup', (req, res) => {
         reject(err);
       } else {
         resolve(result);
-        alert("User Created Successfully");
+        req.session.message = {
+          type: 'success',
+          intro: 'Hurrah! ',
+          text: 'User Registration Successful. Please Sign In to continue.'
+        }
         res.redirect('/signup-in');
       }
     })
@@ -66,12 +70,13 @@ router.post('/login', (req, res) => {
             response.user = user;
             response.status = true;
             resolve(response);
+           
           }else{
             console.log('login failed');
             loginStatus = false;
             response.status = false;
             resolve(response);
-            alert("Invalid Password");
+           
           }
         })
       }else{
@@ -79,7 +84,7 @@ router.post('/login', (req, res) => {
         loginStatus = false;
         response.status = false;
         resolve(response);
-        alert("Invalid Email");
+        // alert("Invalid Email");
       }
     })
   }
@@ -91,6 +96,12 @@ router.post('/login', (req, res) => {
       req.session.loggedIn = true;
       res.redirect('/dashboard');
     }else{
+      
+      req.session.message = {
+        type: 'danger',
+        intro: 'Sorry! ',
+        text: 'Invalid Email or Password'
+      }
       res.redirect('/signup-in');
     }
   }).catch((err) => {
