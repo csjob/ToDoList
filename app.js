@@ -37,6 +37,13 @@ db.connect((err)=>{
   }
 });
 
+//flash message middleware
+app.use(function(req,res,next){ 
+  res.locals.message = req.session.message;
+  delete req.session.message;
+  next(); 
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

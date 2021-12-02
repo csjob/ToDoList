@@ -1,7 +1,13 @@
+{{#if message}}
+<div class="text-center alert alert-dismissible alert-{{message.type}}">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>{{message.intro}}</strong> {{message.text}} 
+</div>
+{{/if}}
+
 <section class="login_body">
     <div class="main1">
       <div class="container1 a-container" id="a-container">
-
 
         <form  action="/signup" method="POST" class="form1" id="a-form" >
           <h2 class="form_title title">Create Account</h2>
