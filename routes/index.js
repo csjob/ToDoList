@@ -65,13 +65,14 @@ router.post('/signup', (req, res) => {
         if (err) {
           reject(err);
         } else {
-          resolve(result);
+         
           req.session.message = {
             type: 'success',
             intro: 'Hurrah! ',
             text: 'User Registration Successful. Please Sign In to continue.'
           }
           res.redirect('/signup-in');
+          resolve(result);
         }
       })
     })
