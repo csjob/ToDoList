@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var mail1=require('../mail');
 // var alert = require('alert');
 
 
@@ -190,8 +190,9 @@ router.post('/forgot-password', (req, res) => {
         });
 
         const link = `http://localhost:3000/reset-password/${user._id}/${token}`;
-        console.log(link);
-
+        
+        //console.log('Ema'+user.email);
+        mail1.mail1(link,user.email);
         resolve(response);
       } else {
         response.status = false;
