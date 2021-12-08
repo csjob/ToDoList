@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mail1=require('../mail');
+var mail1=require('../MailHelper/mail');
 // var alert = require('alert');
 
 
@@ -65,13 +65,14 @@ router.post('/signup', (req, res) => {
         if (err) {
           reject(err);
         } else {
-          resolve(result);
+         
           req.session.message = {
             type: 'success',
             intro: 'Hurrah! ',
             text: 'User Registration Successful. Please Sign In to continue.'
           }
           res.redirect('/signup-in');
+          resolve(result);
         }
       })
     })
@@ -191,6 +192,7 @@ router.post('/forgot-password', (req, res) => {
 
         const link = `http://localhost:3000/reset-password/${user._id}/${token}`;
         
+       // console.log(link);
         //console.log('Ema'+user.email);
         mail1.mail1(link,user.email);
         resolve(response);

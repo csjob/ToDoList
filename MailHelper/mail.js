@@ -5,7 +5,7 @@ exports.mail1 = function(link,email){
   
 
 //const nodemailer=require('nodemailer') 
-var keys=require('./config/keys')
+var keys=require('../config/keys')
 //const {google} = require('googleapis');
 
 const nodemailer = require("nodemailer");
