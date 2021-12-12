@@ -143,16 +143,24 @@ router.post('/login', (req, res) => {
   })
 })
 
-router.get('/dashboard', verifyLogin, (req, res) => {
-  if (req.session.loggedIn) {
+// router.get('/dashboard', verifyLogin, (req, res) => {
+//   if (req.session.loggedIn) {
+//     res.render('dashboard', {
+//       title: 'TODO LIST',
+//       user: req.session.user
+//     });
+//     console.log(req.session.user);
+//   } else {
+//     res.redirect('/signup-in');
+//   }
+// })
+
+router.get('/dashboard',  (req, res) => {
+  
     res.render('dashboard', {
       title: 'TODO LIST',
-      user: req.session.user
     });
-    console.log(req.session.user);
-  } else {
-    res.redirect('/signup-in');
-  }
+    
 })
 
 router.get('/logout', (req, res) => {

@@ -1,18 +1,18 @@
-<div>
-    <h1>Dashboard</h1>
-    <p>Welcome to your dashboard</p>
+<section>
+    <div class="container">
+        <div class="">
+            <div class="main-dashboard">
+                <h2 class="d-flex pl-2">Welcome, {{user.name}} Job !</h2>
+                <p>Here's your task list</p>
+                <div style="margin-top: 20px;" class="main-dashboard">
 
-    {{#if user}}
-        <p>You are logged in as </p> {{user.name}}
-        <form method="get" action="/logout">
-            <input type="submit" value="Logout" onclick="logout()">
-        </form>
-        
-    {{else}}
-        <p>You are not logged in</p>     
-    {{/if}}
-    
+                </div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+
+
+
+    </div>
+</section>

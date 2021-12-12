@@ -6,7 +6,7 @@
 {{/if}}
 
 <section class="login_body">
-    <div class="main1">
+    <div class="main1 animate__animated animate__backInLeft">
       <div class="container1 a-container" id="a-container">
 
         <form  action="/signup" method="POST" class="form1" id="a-form" >
@@ -18,9 +18,9 @@
             <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/linkedin.svg"></div>
             <span class="form__span">Register here!</span>
  
-          <input class="form__input" type="text" placeholder="Name" name="name">
-          <input class="form__input" type="text" placeholder="Email" name="email">
-          <input class="form__input" type="password" placeholder="Password" name="password">
+          <input class="form__input" type="text" placeholder="Name" name="name" required>
+          <input class="form__input" type="text" placeholder="Email" name="email" required>
+          <input class="form__input" type="password" placeholder="Password" name="password" required>
           {{!-- <button class="form__button button submit">SIGN UP</button> --}}
           {{!-- <button type="button" class="btn btn-info mt-3">SIGN UP</button> --}}
           <input type="submit" class="btn btn-info mt-3" value="SIGN UP">
@@ -30,11 +30,11 @@
       </div>
 
   
-      <div class="container1 b-container" id="b-container">
+      <div class="container1 b-container " id="b-container">
 
 
         <form class="form1" id="b-form" method="POST" action="/login">
-          <h2 class="form_title title">Sign in to ToDo List</h2>
+          <h2 class="form_title title ">Sign in to ToDo List</h2>
  
           <div class="form__icons">
             <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/facebook.svg" alt="">
@@ -42,8 +42,8 @@
             <img class="form__icon" src="https://webdevtrick.com/wp-content/uploads/linkedin.svg"></div>
             <span class="form__span">Sign In here!</span>
  
-          <input class="form__input" type="text" placeholder="Email" name="email">
-          <input class="form__input" type="password" placeholder="Password" name="password">
+          <input class="form__input" type="text" placeholder="Email" name="email" required>
+          <input class="form__input" type="password" placeholder="Password" name="password" required>
          
          <a style="text-decoration: none;" href="/forgot-password" class="form__link">Forgot your password?</a>
           {{!-- <button class="form__button button submit">SIGN IN</button> --}}
