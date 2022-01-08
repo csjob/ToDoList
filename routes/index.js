@@ -43,7 +43,7 @@ router.get('/', function (req, res, next) {
   });
 });
 
-
+//for getting the signup page
 router.get('/signup-in', function (req, res) {
   if (req.session.loggedIn) {
     res.redirect('/dashboard');
@@ -55,7 +55,7 @@ router.get('/signup-in', function (req, res) {
 
 });
 
-//for getting the signup page
+//for signup page functionality
 router.post('/signup', (req, res) => {
 
   function doSignup(userData) {
@@ -86,7 +86,7 @@ router.post('/signup', (req, res) => {
 
 })
 
-//for getting the login page
+//for validating login credentials
 router.post('/login', (req, res) => {
 
   function doLogin(userData) {

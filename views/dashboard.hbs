@@ -2,17 +2,110 @@
     <div class="container">
         <div class="">
             <div class="main-dashboard">
-                <h2 class="d-flex pl-2">Welcome, {{user.name}} Job !</h2>
-                <p>Here's your task list</p>
-                <div style="margin-top: 20px;" class="main-dashboard">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h2 class="pl-2">Welcome, {{user.name}} Job !</h2>
+                        <p class="">Here's your task list</p>
+                    </div>
+                    <div class="dropdown" style="float:right;">
+                        <img class="dropbtn" src="https://img.icons8.com/fluency/48/000000/user-male-circle.png" />
+
+
+                        <div class="dropdown-content">
+                            <h5 class="text-center p-2">Name</h5>
+                            <a href="#">Profile</a>
+                            <a href="/logout">Logout</a>
+                            {{!-- <a href="#">Link 3</a> --}}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px; min-height:500px;" class="main-dashboard">
+
+                    <div class="row ">
+                        
+                        <div class="col-xl-3 col-2 col-md-3 ">
+                            <div class="card border-secondary text-right" style="max-width: 15rem; margin-left: 1rem;">
+                                {{!-- <div class="card-header">Important</div> --}}
+                                <div style="padding: 1.25rem 1rem;" class="card-body d-flex justify-content-between">
+                                    <div>
+                                        <i class='bx bx-star bx-lg bx-tada-hover'></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="card-title">1</h4>
+                                        <p class="mb-0">Important</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-2 col-md-3 ">
+                            <div class="card border-secondary text-right" style="max-width: 15rem; margin-left: 1rem;  ">
+                                {{!-- <div class="card-header">Important</div> --}}
+                                <div style="padding: 1.25rem 1rem; " class="card-body d-flex justify-content-between ">
+                                    <div style="cursor: pointer;">
+                                     <i class='bx bxs-hourglass-top bx-lg bx-tada-hover'></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="card-title">1</h4>
+                                        <p class="mb-0">Pending</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       <div class="col-xl-3 col-2 col-md-3 ">
+                            <div class="card border-secondary text-right" style="max-width: 15rem; margin-left: 1rem;">
+                                {{!-- <div class="card-header">Important</div> --}}
+                                <div style="padding: 1.25rem 1rem;" class="card-body d-flex justify-content-between">
+                                    <div>
+                                        {{!-- <i class='bx bx-select-multiple bx-lg bx-tada-hover'></i> --}}
+                                        <i class='bx bx-check-square bx-lg bx-tada-hover '></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="card-title">1</h4>
+                                        <p class="mb-0">Completed</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-2 col-md-3 ">
+                            <div class="card border-secondary text-right" style="max-width: 15rem; margin-left: 1rem;">
+                                {{!-- <div class="card-header">Important</div> --}}
+                                <div style="padding: 1.25rem 1rem;" class="card-body d-flex justify-content-between">
+                                    <div>
+                                        <i class='bx bx-list-check bx-lg bx-tada-hover'></i>  </div>
+                                    <div>
+                                        <h4 class="card-title">1</h4>
+                                        <p class="mb-0">Total</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div style=" margin-top:15rem;" class="d-flex justify-content-center align-items-end">
+                        <img src="https://img.icons8.com/stickers/100/000000/add.png" />
+                    </div>
+
+
+
+
+
+                    <div></div>
+
+
+
+
 
                 </div>
             </div>
 
         </div>
-
-
-
 
     </div>
 </section>
