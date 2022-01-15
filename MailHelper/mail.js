@@ -20,14 +20,24 @@ const REFRESH_TOKEN=keys.REFRESH_TOKEN;
 
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID,CLIENT_SECRET,REDIRECT_URI);
 oAuth2Client.setCredentials({refresh_token : REFRESH_TOKEN})
-//oAuth2Client.credentials = credentials; 
-
+// oAuth2Client.credentials = credentials; 
+console.log(oAuth2Client);
 
 async function sendMail(link,email)
 {
+  
   try {
-    const accessToken= await oAuth2Client.getAccessToken()
+    oauth2Client.on('tokens', (tokens) => {
+      if (tokens.refresh_token) {
+        // store the refresh_token in my database!
+        console.log(tokens.refresh_token);
+      }
+      console.log(tokens.access_token);
+    });
 
+    const accessToken= await oAuth2Client.getAccessToken()
+    
+    
     const transport=nodemailer.createTransport({
       service:'gmail',
       auth: {
@@ -36,11 +46,11 @@ async function sendMail(link,email)
         clientId:CLIENT_ID,
         clientSecret:CLIENT_SECRET,
         refreshToken:REFRESH_TOKEN,
-        accessToken:accessToken
+        accessToken:accessToken,
       }
     }
     )
-    //console.log(link)
+    console.log(link)
     const mailOptions={
       from:keys.from,
       to:email,
@@ -58,7 +68,9 @@ async function sendMail(link,email)
     
 
   } catch (error) {
+    console.log(error.message)
     return error.message    
+    
   }
 
   
