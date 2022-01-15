@@ -24,12 +24,12 @@
                 <div style="margin-top: 15px; min-height:500px;" class="main-dashboard">
 
                     <div class="row ">
-                        
+
                         <div class="col-xl-3 col-2 col-md-3 ">
                             <div class="card border-secondary text-right" style="max-width: 15rem; margin-left: 1rem;">
                                 {{!-- <div class="card-header">Important</div> --}}
                                 <div style="padding: 1.25rem 1rem;" class="card-body d-flex justify-content-between">
-                                    <div>
+                                    <div style="cursor: pointer;">
                                         <i class='bx bx-star bx-lg bx-tada-hover'></i>
                                     </div>
                                     <div>
@@ -41,11 +41,12 @@
                         </div>
 
                         <div class="col-xl-3 col-2 col-md-3 ">
-                            <div class="card border-secondary text-right" style="max-width: 15rem; margin-left: 1rem;  ">
+                            <div class="card border-secondary text-right"
+                                style="max-width: 15rem; margin-left: 1rem;  ">
                                 {{!-- <div class="card-header">Important</div> --}}
                                 <div style="padding: 1.25rem 1rem; " class="card-body d-flex justify-content-between ">
                                     <div style="cursor: pointer;">
-                                     <i class='bx bxs-hourglass-top bx-lg bx-tada-hover'></i>
+                                        <i class='bx bxs-hourglass-top bx-lg bx-tada-hover'></i>
                                     </div>
                                     <div>
                                         <h4 class="card-title">1</h4>
@@ -55,11 +56,11 @@
                             </div>
                         </div>
 
-                       <div class="col-xl-3 col-2 col-md-3 ">
+                        <div class="col-xl-3 col-2 col-md-3 ">
                             <div class="card border-secondary text-right" style="max-width: 15rem; margin-left: 1rem;">
                                 {{!-- <div class="card-header">Important</div> --}}
                                 <div style="padding: 1.25rem 1rem;" class="card-body d-flex justify-content-between">
-                                    <div>
+                                    <div style="cursor: pointer;">
                                         {{!-- <i class='bx bx-select-multiple bx-lg bx-tada-hover'></i> --}}
                                         <i class='bx bx-check-square bx-lg bx-tada-hover '></i>
                                     </div>
@@ -75,8 +76,8 @@
                             <div class="card border-secondary text-right" style="max-width: 15rem; margin-left: 1rem;">
                                 {{!-- <div class="card-header">Important</div> --}}
                                 <div style="padding: 1.25rem 1rem;" class="card-body d-flex justify-content-between">
-                                    <div>
-                                        <i class='bx bx-list-check bx-lg bx-tada-hover'></i>  </div>
+                                    <div style="cursor: pointer;">
+                                        <i class='bx bx-list-check bx-lg bx-tada-hover'></i> </div>
                                     <div>
                                         <h4 class="card-title">1</h4>
                                         <p class="mb-0">Total</p>
@@ -88,19 +89,49 @@
                     </div>
 
 
-                    <div style=" margin-top:15rem;" class="d-flex justify-content-center align-items-end">
-                        <img src="https://img.icons8.com/stickers/100/000000/add.png" />
+
+                    <div class="mt-5">
+                        <div class="list-content">
+                            <ul class="list-group">
+                                <li class="list-item">
+                                    <div class="list-item_checkmark">
+                                        <div class="form-check">
+                                            <input class="form-check-input" checked type="checkbox" value=""
+                                                id="flexCheckDefault">
+                                        </div>
+                                    </div>
+                                    <div class="list-item_title">todo list</div>
+                                </li>
+                                <li class="list-item mt-2">
+                                    <div class="list-item_checkmark">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault">
+                                        </div>
+                                    </div>
+                                    <div class="list-item_title">todo list</div>
+                                </li>
+                                {{!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Morbi leo risus
+                                   
+                                </li> --}}
+                            </ul>
+                        </div>
                     </div>
 
+                    {{!-- <div class="d-flex justify-content-center align-items-end">
+                        <img src="https://img.icons8.com/stickers/100/000000/add.png" />
+                    </div> --}}
 
-
-
-
-                    <div></div>
-
-
-
-
+                    <div class="wrapper">
+                        <div class="icon-search-container " data-ic-class="search-trigger">
+                            <span class="bx bx-plus-circle add-icon"> </span>
+                            
+                            <input type="text" class="search-input" data-ic-class="search-input" placeholder="Add Task" />
+                            <i class='bx bx-paper-plane send-icon' data-ic-class="search-input"></i>
+                            <span class="fa fa-times-circle" data-ic-class="search-clear"></span>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -109,3 +140,45 @@
 
     </div>
 </section>
+
+<script>
+    $(document).ready(function () {
+
+        var $searchTrigger = $('[data-ic-class="search-trigger"]'),
+            $searchInput = $('[data-ic-class="search-input"]'),
+            $searchClear = $('[data-ic-class="search-clear"]');
+
+        $searchTrigger.click(function () {
+
+            var $this = $('[data-ic-class="search-trigger"]');
+            $this.addClass('active');
+            $searchInput.focus();
+
+        });
+
+        
+
+        $searchInput.blur(function () {
+
+            if ($searchInput.val().length > 0) {
+
+                return false;
+
+            } else {
+
+               $searchTrigger.removeClass('active');
+
+            }
+
+        });
+
+        $searchClear.click(function () {
+            $searchInput.val('');
+        });
+
+        $searchInput.focus(function () {
+            $searchTrigger.addClass('active');
+        });
+
+    });
+</script>
