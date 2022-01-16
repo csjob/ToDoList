@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mail1=require('../MailHelper/mail');
+var mail1 = require('../MailHelper/mail');
 // var alert = require('alert');
 
 
@@ -24,6 +24,7 @@ const ObjectId = require('mongodb').ObjectID;
 const {
   ObjectID
 } = require('bson');
+const { tasks } = require('googleapis/build/src/apis/tasks');
 
 //login middleware
 const verifyLogin = (req, res, next) => {
@@ -65,7 +66,7 @@ router.post('/signup', (req, res) => {
         if (err) {
           reject(err);
         } else {
-         
+
           req.session.message = {
             type: 'success',
             intro: 'Hurrah! ',
@@ -143,25 +144,46 @@ router.post('/login', (req, res) => {
   })
 })
 
-// router.get('/dashboard', verifyLogin, (req, res) => {
-//   if (req.session.loggedIn) {
+router.get('/dashboard', verifyLogin, (req, res) => {
+  if (req.session.loggedIn) {
+    // res.render('dashboard', {
+    //   title: 'TODO LIST',
+    //   user: req.session.user
+    // });
+
+    //displaying tasks taking from todolist collection
+     function getTasks() {
+      return new Promise(async (resolve, reject) => {
+        let tasks = await db.getDb().collection(collections.TODOLIST_COLLECTION).find({
+          user: req.session.user._id
+        }).toArray();
+        resolve(tasks);
+      })
+    }
+    getTasks().then((result) => {
+      console.log(result);
+      res.render('dashboard', {
+        title: 'TODO LIST',
+        user: req.session.user,
+        tasks: result,
+      });
+     
+    }).catch((err) => {
+      console.log(err);
+    })
+
+  } else {
+    res.redirect('/signup-in');
+  }
+})
+
+// router.get('/dashboard',  (req, res) => {
+
 //     res.render('dashboard', {
 //       title: 'TODO LIST',
-//       user: req.session.user
 //     });
-//     console.log(req.session.user);
-//   } else {
-//     res.redirect('/signup-in');
-//   }
-// })
 
-router.get('/dashboard',  (req, res) => {
-  
-    res.render('dashboard', {
-      title: 'TODO LIST',
-    });
-    
-})
+// })
 
 router.get('/logout', (req, res) => {
   req.session.destroy();
@@ -199,10 +221,10 @@ router.post('/forgot-password', (req, res) => {
         });
 
         const link = `http://localhost:3000/reset-password/${user._id}/${token}`;
-        
-       // console.log(link);
+
+        // console.log(link);
         //console.log('Ema'+user.email);
-        mail1.mail1(link,user.email);
+        mail1.mail1(link, user.email);
         resolve(response);
       } else {
         response.status = false;
@@ -419,7 +441,7 @@ router.post('/reset-password/:id/:token', (req, res) => {
   }).then((result) => {
     if (result.status) {
       console.log(result + "result success");
-      
+
 
     } else {
       console.log(result + "result failed");
@@ -431,6 +453,85 @@ router.post('/reset-password/:id/:token', (req, res) => {
   })
   // res.redirect('/signup-in');
 })
+
+
+//add todo
+router.post('/add-todo', (req, res) => {
+  //console.log(req.body.tasks);
+  //console.log(req.session.user);
+  const todo = req.body.tasks;
+  // console.log("todo : " + todo);
+  const userId = req.session.user._id;
+  const userName = req.session.user.name;
+  const userEmail = req.session.user.email;
+  //console.log(userId, userName, userEmail);
+
+  //check if the todo is valid
+  function doAddTodo(todoData) {
+    return new Promise(async (resolve, reject) => {
+      // let response = {};
+
+      // console.log(todoData);
+      let todoObj = {
+        user: userId,
+        tasks: todoData.todo,
+        check: 'N'
+      }
+      //console.log(todoObj);
+      //console.log("user:"+todoData.userId);
+      //check for the user
+      let user = await db.getDb().collection(collections.USER_COLLECTION).findOne({
+        _id: ObjectID(todoData.userId)
+      })
+
+      if (user) {
+        db.getDb().collection(collections.TODOLIST_COLLECTION).insertOne(todoObj, (err, result) => {
+          if (err) {
+            console.log(err);
+            // response.status = false;
+            // resolve(response);
+          } else {
+            // response.status = true;
+            // resolve(response);
+            // req.session.message = {
+            //   type: 'success',
+            //   intro: 'Hurrah! ',
+            //   text: 'Todo added successfully'
+            // }
+            console.log("todo added successfully");
+            resolve(response);
+            res.redirect('/dashboard');
+            
+          }
+        });
+      } else {
+        console.log('user not found');
+        // response.status = false;
+        // resolve(response);
+      }
+
+    })
+
+  }
+  doAddTodo({
+    todo,
+    userId,
+  }).then((result) => {
+    if (result.status) {
+      console.log(result + "result success");
+    } else {
+      console.log(result + "result failed");
+
+    }
+
+  }).catch((err) => {
+    console.log(err);
+  })
+
+  //console.log("todoo : " + todo);
+
+});
+
 
 
 module.exports = router;
