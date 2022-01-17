@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //for session management
-app.use(session({secret: "key", cookie: {maxAge: 60000}}));
+app.use(session({secret: "key", cookie: {maxAge: 600000}}));
 
 //calling databse function
 db.connect((err)=>{
