@@ -93,37 +93,39 @@
                     <div class="mt-5">
                         <div class="list-content">
                             <ul class="list-group">
-                               
-                               
-                                {{!-- if task present --}}
-                                
 
-                                
+
+                                {{!-- if task present --}}
+
+
+
                                 {{#each tasks as |task|}}
                                 {{!-- {{#if task.status == "important"}} --}}
-                                <li class="list-item mt-2">
+                                <li class="list-item mt-2 animate__animated animate__fadeInUp">
                                     <div class="list-item_checkmark">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value=""
                                                 id="flexCheckDefault">
                                         </div>
                                     </div>
-                                    <div class="list-item_title">{{task.tasks}} </div> <span class="delete-icon" data-ic-class="delete-task" ><i class='bx bx-trash'></i></span>
+                                    <div class="list-item_title">{{task.tasks}} </div> <span task-id="{{this._id}}"
+                                        class="delete-icon" data-ic-class="delete-task"><i
+                                            class='bx bx-trash'></i></span>
                                 </li>
                                 {{/each}}
 
                                 {{!-- if no task present --}}
-                                {{#unless tasks}}   
-                                <li class="list-item">
+                                {{#unless tasks}}
+                                <li class="list-item ">
                                     <div class="list-item_checkmark">
                                         <div class="form-check">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="list-item_title text-center">No task found</div>
                                 </li>
                                 {{/unless}}
-                                
+
                             </ul>
                         </div>
                     </div>
@@ -136,9 +138,11 @@
                         <div class="icon-search-container " data-ic-class="search-trigger">
                             <span class="bx bx-plus-circle add-icon"> </span>
                             <form action="" method="post">
-                            <input type="text" name="todolist" class="search-input" data-ic-class="search-input" placeholder="Add Task" />
-                            <i class='bx bx-paper-plane send-icon' data-ic-class="add-task" onsubmit="/add-todo" ></i>
-                            <span class="fa fa-times-circle" data-ic-class="search-clear"></span>
+                                <input type="text" name="todolist" class="search-input" data-ic-class="search-input"
+                                    onkeypress="/add-todo" placeholder="Add Task" />
+                                <i class='bx bx-paper-plane send-icon' data-ic-class="add-task"></i>
+                                {{!-- onsubmit="/add-todo"  --}}
+                                <span class="fa fa-times-circle" data-ic-class="search-clear"></span>
                             </form>
                         </div>
                     </div>
@@ -158,6 +162,8 @@
             $searchInput = $('[data-ic-class="search-input"]'),
             $searchClear = $('[data-ic-class="search-clear"]'),
             $addTask = $('[data-ic-class="add-task"]');
+        $deleteTask = $('[data-ic-class="delete-task"]');
+
 
         $searchTrigger.click(function () {
 
@@ -167,7 +173,7 @@
 
         });
 
-        
+
         $searchInput.blur(function () {
 
             if ($searchInput.val().length > 0) {
@@ -175,37 +181,65 @@
                 return false;
 
             } else {
-               $searchTrigger.removeClass('active');
+                $searchTrigger.removeClass('active');
             }
         });
 
-        $addTask.click(function(){
-            if($searchInput.val().length > 0){
+        //add task by enter key
+        
+
+        //add task by click on add icon
+        $addTask.click(function () {
+
+            if ($searchInput.val().length > 0) {
                 var tasks = $searchInput.val();
 
                 $.ajax({
                     type: 'POST',
                     url: '/add-todo',
                     data: {
-                        {{!-- '_token': $searchInput.val(), --}}
+                        
                         'tasks': tasks
                     },
-                    success: function(data) {
-                      //  console.log(data);
-                      //refresh page
+                    success: function (data) {
+                        //  console.log(data);
+                        //refresh page
                         location.reload();
                     }
                 });
-               // alert($searchInput.val());
-               // console.log($searchInput.val());
-                
+                // alert($searchInput.val());
+                // console.log($searchInput.val());
+
             }
         });
+
+        //delete task
+        $deleteTask.click(function () {
+            var taskId = $(this).attr('task-id');
+            console.log(taskId);
+            if (confirm('Are you sure you want to delete this task?')) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/delete-todo',
+                    data: {
+                        'taskId': taskId
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        location.reload();
+                    }
+                })
+            } else {
+                return false;
+            }
+
+        });
+
 
 
         $searchClear.click(function () {
             $searchInput.val('');
-            
+
         });
 
         $searchInput.focus(function () {

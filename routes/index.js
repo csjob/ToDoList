@@ -224,7 +224,7 @@ router.post('/forgot-password', (req, res) => {
 
         // console.log(link);
         //console.log('Ema'+user.email);
-        mail1.mail1(link, user.email);
+       mail1.mail1(link, user.email);
         resolve(response);
       } else {
         response.status = false;
@@ -518,9 +518,9 @@ router.post('/add-todo', (req, res) => {
     userId,
   }).then((result) => {
     if (result.status) {
-      console.log(result + "result success");
+     // console.log(result + "result success");
     } else {
-      console.log(result + "result failed");
+     // console.log(result + "result failed");
 
     }
 
@@ -532,6 +532,70 @@ router.post('/add-todo', (req, res) => {
 
 });
 
+
+//delete todo
+router.post('/delete-todo', (req, res) => {
+  const taskId = req.body.taskId;
+  console.log(taskId);
+
+  //check if the todo is valid
+  function doDeleteTodo(todoData) {
+    return new Promise(async (resolve, reject) => {
+      // let response = {};
+
+      // console.log(todoData);
+      //check for the user
+      let user = await db.getDb().collection(collections.USER_COLLECTION).findOne({
+        _id: ObjectID(todoData.userId)
+      })
+
+      if (user) {
+        db.getDb().collection(collections.TODOLIST_COLLECTION).deleteOne({
+          _id: ObjectID(todoData.taskId)
+        }, (err, result) => {
+          if (err) {
+            console.log(err);
+            // response.status = false;
+            // resolve(response);
+          } else {
+            // response.status = true;
+            // resolve(response);
+            // req.session.message = {
+            //   type: 'success',
+            //   intro: 'Hurrah! ',
+            //   text: 'Todo deleted successfully'
+            // }
+            console.log("todo deleted successfully");
+            resolve(response);
+            res.redirect('/dashboard');
+            
+          }
+        });
+      } else {
+        console.log('user not found');
+        // response.status = false;
+        // resolve(response);
+      }
+
+    })
+
+  }
+  doDeleteTodo({
+    taskId,
+    userId: req.session.user._id,
+  }).then((result) => {
+    if (result.status) {
+     // console.log(result + "result success");
+    } else {
+     // console.log(result + "result failed");
+
+    }
+
+  }).catch((err) => {
+    console.log(err);
+  });
+  
+});
 
 
 module.exports = router;

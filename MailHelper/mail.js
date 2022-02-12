@@ -1,3 +1,5 @@
+
+
 //****************//****************//**********************************************************************************//
 //node mailer mail sending
 
@@ -27,16 +29,7 @@ async function sendMail(link,email)
 {
   
   try {
-    oauth2Client.on('tokens', (tokens) => {
-      if (tokens.refresh_token) {
-        // store the refresh_token in my database!
-        console.log(tokens.refresh_token);
-      }
-      console.log(tokens.access_token);
-    });
-
     const accessToken= await oAuth2Client.getAccessToken()
-    
     
     const transport=nodemailer.createTransport({
       service:'gmail',
