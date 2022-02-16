@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mail1 = require('../MailHelper/mail');
+var MailHelper = require('../MailHelper/sendMail');
 // var alert = require('alert');
 
 
@@ -217,15 +217,27 @@ router.post('/forgot-password', (req, res) => {
         };
 
         const token = jwt.sign(payload, secret, {
-          expiresIn: '1h'
+          expiresIn: '5m'
         });
 
         const link = `http://localhost:3000/reset-password/${user._id}/${token}`;
 
         // console.log(link);
         //console.log('Ema'+user.email);
-       mail1.mail1(link, user.email);
+       //mail1.mail1(link, user.email);
+
+       //calling the mail function
+       //MailHelper.mail1(link, user.email);
+       MailHelper.sendEmail(link, user.email).then((result) => {
+        console.log(result);
+        response.status = true;
+      }).catch((err) => {
+        console.log(err);
+        result.status = false;
+      });
+
         resolve(response);
+        
       } else {
         response.status = false;
         resolve(response);
